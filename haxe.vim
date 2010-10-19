@@ -30,7 +30,7 @@ syn keyword haxeConditional     if else switch
 syn keyword haxeRepeat          while for do in
 syn keyword haxeBoolean         true false
 syn keyword haxeConstant        null
-syn keyword haxeTypedef         this super
+syn keyword haxeClassRef        this super
 syn keyword haxeOperator        new cast 
 syn keyword haxeType            Void Bool Int Float Dynamic
 syn keyword haxeStatement       return
@@ -112,7 +112,8 @@ syn region  haxeVar             matchgroup=haxeVarBoundaries start=/var / matchg
 
 syn match   haxeOperator        /[-+*<>\[\]{}();%!,\.:&=|]/
 
-syn region  haxeFunctionDef     matchgroup=haxeFunctionBoundaries start=/function/ matchgroup=NONE end=/(/me=e-1
+syn region  haxeFunctionDef     matchgroup=haxeFunctionBoundaries start=/\Wfunction\W/ms=s+1,me=e-1 matchgroup=NONE end=/(/me=e-1
+syn match   haxeAssignment      /\w\+\s*[-+*/&|]\?=/ contains=haxeOperator
 
 syn region haxeCondIf start="#if \+!\?" end="\W" skip="([A-Za-z0-9_ |&!]\+)"
 syn region haxeCondElse start="#else \+!\?" end="\W" skip="([A-Za-z0-9_ |&!]\+)"
@@ -198,7 +199,7 @@ if version >= 508 || !exists("did_haxe_syn_inits")
   hi def link haxeParen1         Special
   hi def link haxeParen2         Special
 
-  hi def link haxeVarBoundaries  Operator
+  hi def link haxeVarBoundaries  Special
   hi def link haxeVar            Identifier
 
   hi def link haxeQuotationMarks Special
@@ -210,12 +211,14 @@ if version >= 508 || !exists("did_haxe_syn_inits")
 
   hi def link haxeType           Type
   hi def link haxeExternal       Include
+  hi def link haxeAssignment     Type
+  hi def link haxeClassRef       Special
 
   hi def link htmlComment        Special
   hi def link htmlCommentPart    Special
   hi def link haxeSpaceError     Error
 
-  hi def link haxeFunctionDef    Identifier
+  hi def link haxeFunctionDef    Type
   hi def link haxeFunctionBoundaries Keyword
 
   hi def link haxeCondIf Macro
