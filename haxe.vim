@@ -112,7 +112,7 @@ syn region  haxeVar             matchgroup=haxeVarBoundaries start=/var / matchg
 
 syn match   haxeOperator        /[-+*<>\[\]{}();%!,\.:&=|]/
 
-syn region  haxeFunctionDef     matchgroup=haxeFunctionBoundaries start=/\Wfunction\W/ms=s+1,me=e-1 matchgroup=NONE end=/(/me=e-1
+syn region  haxeFunctionDef     matchgroup=haxeFunctionBoundaries start=/\Wfunction\W/ms=s+1,me=e-1 matchgroup=NONE end=/(/me=e-1 contains=haxeOperator
 syn match   haxeAssignment      /\w\+\s*[-+*/&|]\?=/ contains=haxeOperator
 
 syn region haxeCondIf start="#if \+!\?" end="\W" skip="([A-Za-z0-9_ |&!]\+)"
